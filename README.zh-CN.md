@@ -25,7 +25,7 @@
 克隆本仓库，并作为全局技能安装：
 
 ```bash
-git clone https://github.com/<your-name>/java-simplification.git
+git clone https://github.com/laboberken/java-simplification.git
 cd java-simplification
 ```
 

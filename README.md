@@ -28,7 +28,7 @@ stricter process:
 Clone this repository and install it as a global skill:
 
 ```bash
-git clone https://github.com/<your-name>/java-simplification.git
+git clone https://github.com/laboberken/java-simplification.git
 cd java-simplification
 ```
 
