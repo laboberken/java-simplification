@@ -1,0 +1,47 @@
+name: validate
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Check required files
+        run: |
+          set -e
+          test -f SKILL.md
+          test -f README.md
+          test -f README.zh-CN.md
+          test -f LICENSE
+          test -f commands/java-simplify.md
+
+      - name: Validate SKILL.md frontmatter
+        run: |
+          set -e
+          head -n 1 SKILL.md | grep -q '^---$'
+          grep -q '^name: java-simplify$' SKILL.md
+          grep -q '^description:' SKILL.md
+          grep -q '^license: MIT$' SKILL.md
+
+      - name: Check examples
+        run: |
+          set -e
+          count=$(find examples -name '*.md' | wc -l)
+          echo "Example files: $count"
+          test "$count" -ge 9
+
+      - name: Markdown lint
+        uses: DavidAnson/markdownlint-cli2-action@v19
+        with:
+          globs: |
+            SKILL.md
+            README.md
+            README.zh-CN.md
+            commands/*.md
+            examples/**/*.md
+        continue-on-error: true
